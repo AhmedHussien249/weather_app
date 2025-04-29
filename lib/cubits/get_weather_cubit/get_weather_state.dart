@@ -1,9 +1,18 @@
 part of 'get_weather_cubit.dart';
 
-class GetWeatherState {}
+class WeatherState {}
 
-class NoWeatherState extends GetWeatherState {}
+class WeatherInitialState extends WeatherState {}
 
-class WeatherLoadedState extends GetWeatherState {}
+class WeatherLoadedState extends WeatherState {
 
-class WeatherFailureState extends GetWeatherState {}
+  final WeatherModel weatherModel;
+
+  WeatherLoadedState({required this.weatherModel});
+}
+
+class WeatherFailureState extends WeatherState {
+  final String errorMessage;
+
+  WeatherFailureState({required this.errorMessage});
+}

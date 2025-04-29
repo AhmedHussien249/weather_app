@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wheather_app/views/search_view.dart';
+import 'package:wheather_app/widgets/no_weather_body.dart';
+import 'package:wheather_app/widgets/weather_info_body.dart';
 
-import '../widgets/no_weather_body.dart';
+import '../cubits/get_weather_cubit/get_weather_cubit.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,8 +13,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: const Text('Weather App'),
         centerTitle: true,
+
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -25,7 +30,16 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: NoWeatherBody(),
+      body: BlocBuilder<GetWeatherCubit, WeatherState>(
+          builder: (context, state) {
+        if (state is WeatherInitialState) {
+          return  NoWeatherBody();
+        } else if (state is WeatherLoadedState) {
+          return  WeatherInfoBody(weatherModel: state.weatherModel,);
+        } else {
+          return Text('Opps there is something error');
+        }
+      }),
     );
   }
 }
