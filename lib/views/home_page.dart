@@ -33,11 +33,15 @@ class HomePage extends StatelessWidget {
       body: BlocBuilder<GetWeatherCubit, WeatherState>(
           builder: (context, state) {
         if (state is WeatherInitialState) {
-          return  NoWeatherBody();
+          return  const NoWeatherBody();
         } else if (state is WeatherLoadedState) {
           return  WeatherInfoBody(weatherModel: state.weatherModel,);
+          // la7z b2a hena 7aga mohma
+          // w hya en leh WeatherInfoBody msh wa5d const
+          // 3shan lw kan 5d const kant kemto htfdl sabta b3d ma a3ml search
+          // w kan hy3mlo moshkla f el ui
         } else {
-          return Text('Opps there is something error');
+          return const Text('Opps there is something error');
         }
       }),
     );

@@ -16,34 +16,31 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GetWeatherCubit(),
-      child: Builder(builder: (context) {
-        return Builder(builder: (context) {
-          return BlocBuilder<GetWeatherCubit, WeatherState>(
-            builder: (context, state) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  colorScheme: ColorScheme.fromSwatch(
-                    primarySwatch: getThemeColor(context
-                        .read<GetWeatherCubit>()
-                        .weatherModel
-                        ?.weatherCondition),
-                  ),
-                  appBarTheme: AppBarTheme(
-                      backgroundColor: getThemeColor(
-                        context
+      child: Builder(
+          builder: (context) => BlocBuilder<GetWeatherCubit, WeatherState>(
+                builder: (context, state) {
+                  return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    theme: ThemeData(
+                      colorScheme: ColorScheme.fromSwatch(
+                        primarySwatch: getThemeColor(context
                             .read<GetWeatherCubit>()
                             .weatherModel
-                            ?.weatherCondition,
+                            ?.weatherCondition),
                       ),
-                      foregroundColor: Colors.white),
-                ),
-                home: const HomePage(),
-              );
-            },
-          );
-        });
-      }),
+                      appBarTheme: AppBarTheme(
+                          backgroundColor: getThemeColor(
+                            context
+                                .read<GetWeatherCubit>()
+                                .weatherModel
+                                ?.weatherCondition,
+                          ),
+                          foregroundColor: Colors.white),
+                    ),
+                    home: const HomePage(),
+                  );
+                },
+              )),
     );
   }
 }
